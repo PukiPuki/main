@@ -1,11 +1,10 @@
 package seedu.address.model.card;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.UUID;
-
-import seedu.address.model.cardtag.Node;
 
 /**
  * Represents a Flashcard.
@@ -13,7 +12,7 @@ import seedu.address.model.cardtag.Node;
  *
  * TODO: Allow for different kinds of Front and Back
  */
-public class Card implements Node {
+public class Card {
 
     public static final String MESSAGE_CARD_CONSTRAINTS =
             "Card front and back can take any values, and it should not be blank";
@@ -30,15 +29,13 @@ public class Card implements Node {
     private final Schedule schedule;
 
     public Card(String front, String back) {
-        requireAllNonNull(front, back);
-        this.front = front;
-        this.back = back;
-        this.id = UUID.randomUUID();
-        this.schedule = new Schedule();
+        this(UUID.randomUUID(), front, back);
     }
 
     public Card(UUID id, String front, String back) {
         requireAllNonNull(id, front, back);
+        checkArgument(isValidCard(front), MESSAGE_CARD_CONSTRAINTS);
+        checkArgument(isValidCard(back), MESSAGE_CARD_CONSTRAINTS);
         this.front = front;
         this.back = back;
         this.id = id;
