@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
@@ -27,6 +28,12 @@ public class ModelManagerTest {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredTagList().remove(0);
+    }
+
+    @Test
+    public void getSelectedCard_null() {
+        ModelManager modelManager = new ModelManager();
+        assertNull(modelManager.getSelectedCard());
     }
 
     @Test
