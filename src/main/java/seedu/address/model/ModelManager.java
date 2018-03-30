@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,6 +23,9 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.card.exceptions.NoCardSelectedException;
+import seedu.address.model.cardtag.CardTag;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -37,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Tag> filteredTags;
     private final ObservableList<Card> filteredCards;
     private Card selectedCard;
+    private Tag selectedTag;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,6 +59,8 @@ public class ModelManager extends ComponentManager implements Model {
         // To prevent direct referencing, which would cause setAll() to affect addressBook's list
         filteredCards = FXCollections.observableArrayList();
         filteredCards.setAll(this.addressBook.getCardList());
+
+        selectedTag = null;
     }
 
     public ModelManager() {
@@ -141,29 +149,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addCard(Card card) throws DuplicateCardException {
         addressBook.addCard(card);
-        showAllCards();
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
         addressBook.deleteCard(card);
-        showAllCards();
+        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
+
+    //@@author pukipuki
     @Override
     public void answerSelectedCard(int confidenceLevel) throws NoCardSelectedException {
         if (selectedCard == null) {
             throw new NoCardSelectedException();
-        } else if (confidenceLevel == 0) {
-            // repeat in ui
-        } else if (confidenceLevel == 1) {
-            selectedCard.getSchedule().feedback(false);
-        } else if (confidenceLevel == 2) {
-            selectedCard.getSchedule().feedback(true);
+        } else {
+            selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
         }
+        showDueCards();
     }
+    //@@author
 
     @Override
     public void updateCard(Card target, Card editedCard)
@@ -178,6 +185,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void showAllCards() {
         filteredCards.setAll(this.addressBook.getCardList());
+    }
+
+    /**
+     * Synchronises the card list with that of the card bank.
+     */
+    private void updateFilteredCardList() {
+        if (selectedTag == null) {
+            showAllCards();
+            return;
+        }
+        filterCardsByTag(selectedTag);
     }
 
     @Override
@@ -200,10 +218,49 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    //@@author jethrokuan
+    @Override
+    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+        this.getAddressBook().getCardTag().addEdge(card, tag);
+        updateFilteredCardList();
+    }
+
+    @Override
+    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+        this.getAddressBook().getCardTag().removeEdge(card, tag);
+        updateFilteredCardList();
+    }
+
+    @Override
+    public List<Tag> getTags(Card card) {
+        return this.getAddressBook()
+                .getCardTag()
+                .getTags(card, this.getAddressBook().getTagList());
+    }
+
+    @Override
+    public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        List<Tag> oldTags = cardTag.getTags(card, this.getAddressBook().getTagList());
+
+        // Remove old tags first
+        for (Tag tag : oldTags) {
+            cardTag.removeEdge(card, tag);
+        }
+
+        for (Tag tag : tags) {
+            Tag newOrExistingTag = addTag(tag).getTag();
+            cardTag.addEdge(card, newOrExistingTag);
+        }
+
+    }
+    //@@author
+
     //@@author yong-jie
     @Subscribe
     private void handleTagListPanelSelectionEvent(TagListPanelSelectionChangedEvent event) {
-        filterCardsByTag(event.getNewSelection().tag);
+        selectedTag = event.getNewSelection().tag;
+        filterCardsByTag(selectedTag);
     }
 
     //@@author pukipuki

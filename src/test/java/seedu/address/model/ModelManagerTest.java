@@ -16,6 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.card.exceptions.NoCardSelectedException;
 import seedu.address.model.tag.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -34,6 +35,13 @@ public class ModelManagerTest {
     public void getSelectedCard_null() {
         ModelManager modelManager = new ModelManager();
         assertNull(modelManager.getSelectedCard());
+    }
+
+    @Test
+    public void answerSelectedCard_throwsNoCardSelectedException() throws NoCardSelectedException {
+        ModelManager modelManager = new ModelManager();
+        thrown.expect(NoCardSelectedException.class);
+        modelManager.answerSelectedCard(0);
     }
 
     @Test

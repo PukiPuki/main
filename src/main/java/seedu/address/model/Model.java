@@ -1,12 +1,17 @@
 package seedu.address.model;
 
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.card.exceptions.NoCardSelectedException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -91,4 +96,16 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCardList();
+
+    /** Adds an edge between a card and a tag*/
+    void addEdge(Card card, Tag tag) throws DuplicateEdgeException;
+
+    /** Adds an edge between a card and a tag*/
+    void removeEdge(Card card, Tag tag) throws EdgeNotFoundException;
+
+    /** Gets list of tags for a given card */
+    List<Tag> getTags(Card card);
+
+    /** Updates the tags for a card to the new set */
+    void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException;
 }

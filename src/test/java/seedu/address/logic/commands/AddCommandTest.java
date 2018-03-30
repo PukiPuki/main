@@ -8,6 +8,8 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -15,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
@@ -24,6 +27,8 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.model.card.exceptions.DuplicateCardException;
 import seedu.address.model.card.exceptions.NoCardSelectedException;
+import seedu.address.model.cardtag.DuplicateEdgeException;
+import seedu.address.model.cardtag.EdgeNotFoundException;
 import seedu.address.model.tag.AddTagResult;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
@@ -136,6 +141,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public List<Tag> getTags(Card card) {
+            fail("This method should not be called");
+            return null;
+        }
+
+        @Override
+        public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
         public void updateFilteredTagList(Predicate<Tag> predicate) {
             fail("This method should not be called.");
         }
@@ -162,7 +188,7 @@ public class AddCommandTest {
 
         @Override
         public void deleteCard(Card target) throws CardNotFoundException {
-            fail("This method should not be called.");
+            fail("This method should lastnot be called.");
         }
 
         @Override

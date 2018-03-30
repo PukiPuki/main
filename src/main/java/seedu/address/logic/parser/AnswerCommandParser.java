@@ -29,8 +29,7 @@ public class AnswerCommandParser implements Parser<AnswerCommand> {
         }
 
         try {
-            String stringConfidenceLevel = ParserUtil.parseCard(argMultimap.getValue(PREFIX_CONFIDENCE).get());
-            int confidenceLevel = Integer.parseInt(stringConfidenceLevel);
+            int confidenceLevel = ParserUtil.parseConfidenceLevel(argMultimap.getValue(PREFIX_CONFIDENCE).get());
             return new AnswerCommand(confidenceLevel);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);

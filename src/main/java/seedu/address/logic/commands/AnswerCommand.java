@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.exceptions.NoCardSelectedException;
 
 /**
- * Adds a tag to the address book.
+ * Answers a selected flashcard
  */
 public class AnswerCommand extends UndoableCommand {
 
@@ -23,7 +23,7 @@ public class AnswerCommand extends UndoableCommand {
     private final int confidenceLevel;
 
     /**
-     * Creates an AddCommand to add the specified {@code Card}
+     * Creates an AnswerCommand to add the specified {@code Card}
      */
     public AnswerCommand(int confidenceLevel) {
         this.confidenceLevel = confidenceLevel;
@@ -32,10 +32,9 @@ public class AnswerCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
-        //requireNonNull(model.getSelectedCard());
         try {
             model.answerSelectedCard(confidenceLevel);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "blabla"));
+            return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoCardSelectedException e) {
             throw new CommandException(MESSAGE_CARD_NOT_SELECTED);
         }
