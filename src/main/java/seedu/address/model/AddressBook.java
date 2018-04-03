@@ -88,6 +88,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicateCardException e) {
             throw new AssertionError("AddressBooks should not have duplicate cards");
         }
+
+        CardTag cardTag = new CardTag(newData.getCardTag());
+        setCardTag(cardTag);
     }
 
     //// tag-level operations
@@ -123,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (tags.remove(key)) {
             return true;
         } else {
-            throw new TagNotFoundException();
+            throw new TagNotFoundException(key);
         }
     }
 
@@ -146,7 +149,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// card-tag-level operations
-    public void associate(Card c, Tag t) throws DuplicateEdgeException {
+    public void addEdge(Card c, Tag t) throws DuplicateEdgeException {
         cardTag.addEdge(c, t);
     }
 
@@ -228,7 +231,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.tags.equals(((AddressBook) other).tags)
-                && this.cards.equals(((AddressBook) other).cards));
+                && this.cards.equals(((AddressBook) other).cards))
+                && this.cardTag.equals(((AddressBook) other).cardTag);
     }
 
     @Override
