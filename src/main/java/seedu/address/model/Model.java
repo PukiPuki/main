@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -67,7 +68,7 @@ public interface Model {
     /**
      * Sets the filtered card list to contain cards that are due for review today.
      */
-    void showDueCards();
+    void showDueCards(LocalDateTime date);
 
     /**
      * Sets the card list to contain only those with given tag.

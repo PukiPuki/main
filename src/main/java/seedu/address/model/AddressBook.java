@@ -171,14 +171,19 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .isBefore(LocalDateTime.now());
     }
 
+    public Predicate<Card> isBefore(LocalDateTime date) {
+        return c -> c.getSchedule().getNextReview()
+            .isBefore(date.plusHours(23L).plusMinutes(59L));
+    }
+
     //// get list of cards for review
-    public ObservableList<Card> getTodayReviewList() {
+    public ObservableList<Card> getReviewList(LocalDateTime date) {
         Comparator<Card> byDate =
             Comparator.comparing(Card::getSchedule);
 
         ObservableList<Card> cardsList = cards.asObservableList();
         FXCollections.sort(cardsList, byDate);
-        FilteredList<Card> filteredList = new FilteredList<Card>(cardsList, isBefore());
+        FilteredList<Card> filteredList = new FilteredList<Card>(cardsList, isBefore(date));
 
         return filteredList;
     }

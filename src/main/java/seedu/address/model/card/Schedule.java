@@ -14,6 +14,10 @@ public class Schedule implements Comparable<Schedule>{
 
     public static final String MESSAGE_ANSWER_CONSTRAINTS =
         "Confidence Levels should only be 0, 1 or 2";
+    public static final String MESSAGE_DAY_CONSTRAINTS =
+        "There are at most 31 days! Is this month February?";
+    public static final String MESSAGE_MONTH_CONSTRAINTS =
+      "There are at most 12 months!";
 
     private final double lowerBoundRememberRate = 0.85;
 
@@ -76,6 +80,22 @@ public class Schedule implements Comparable<Schedule>{
            return true;
         } else {
            return false;
+        }
+    }
+
+    public static boolean isValidMonth(int month) {
+        if (month >= 1 && month <= 12) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+
+    public static boolean isValidDay(int day) {
+        if (day >= 1 && day <= 31) {
+            return true;
+        } else {
+            return false;
         }
     }
 

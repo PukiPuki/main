@@ -84,7 +84,7 @@ public class AddressBookParser {
             return new ListCardCommand();
 
         case ShowDueCommand.COMMAND_WORD:
-            return new ShowDueCommand();
+            return new ShowDueCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

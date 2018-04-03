@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.ui.UiManager.VALID_THEMES;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -171,8 +174,56 @@ public class ParserUtil {
         }
         return Integer.parseInt(confidenceLevelString);
     }
-    //@@author
 
+    public static LocalDateTime parseDate(String dayString, String monthString, String yearString) throws IllegalValueException, DateTimeException {
+        int year = getYear(yearString);
+        int month = getMonth(monthString);
+        int day = getDay(dayString);
+        if(!Schedule.isValidDay(day)) {
+            throw new IllegalValueException(Schedule.MESSAGE_DAY_CONSTRAINTS);
+        } else if (!Schedule.isValidMonth(month)) {
+            throw new IllegalValueException(Schedule.MESSAGE_MONTH_CONSTRAINTS);
+        }
+        try {
+            LocalDateTime date = LocalDate.of(year, month, day).atStartOfDay();
+            return date;
+        } catch (DateTimeException dte) {
+            throw new IllegalValueException(dte.getMessage());
+        }
+    }
+
+    public static String trimDateArgs(Optional<String> args) {
+        if (args.isPresent()) {
+            return args.get();
+        } else {
+            return "";
+        }
+    }
+
+    public static int getYear(String yearString) {
+        if (yearString.equals("")) {
+            return LocalDate.now().getYear();
+        } else {
+            return Integer.parseInt(yearString);
+        }
+    }
+
+    public static int getMonth(String monthString) {
+        if (monthString.equals("")) {
+            return LocalDate.now().getMonthValue();
+        } else {
+            return Integer.parseInt(monthString);
+        }
+    }
+
+    public static int getDay(String dayString) {
+        if (dayString.equals("")) {
+            return LocalDate.now().getDayOfMonth();
+        } else {
+            return Integer.parseInt(dayString);
+        }
+    }
+    //@@author
 
     //@@author jethrokuan
     /**
