@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -169,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             selectedCard.getSchedule().feedbackHandlerRouter(confidenceLevel);
         }
-        showDueCards(LocalDateTime.now());
+        showDueCards(LocalDate.now().atStartOfDay());
     }
     //@@author
 
@@ -213,6 +214,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author pukipuki
+    @Override
+    public void setNextReview(LocalDateTime date) throws NoCardSelectedException {
+        if (selectedCard == null) {
+            throw new NoCardSelectedException();
+        } else {
+            selectedCard.getSchedule().setNextReview(date);
+        }
+        showDueCards(LocalDate.now().atStartOfDay());
+    }
+
     @Override
     public void showDueCards(LocalDateTime date) {
         filteredCards.setAll(this.addressBook.getReviewList(date));

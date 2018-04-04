@@ -168,12 +168,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// predicate for card review
     public Predicate<Card> isBefore() {
         return c -> c.getSchedule().getNextReview()
-                .isBefore(LocalDateTime.now());
+              .isBefore(LocalDateTime.now());
     }
 
+    /**
+     * Predicate for card review before a certain time
+     */
     public Predicate<Card> isBefore(LocalDateTime date) {
         return c -> c.getSchedule().getNextReview()
-            .isBefore(date.plusHours(23L).plusMinutes(59L));
+            .isBefore(date.plusDays(1).minusNanos(1));
     }
 
     //// get list of cards for review

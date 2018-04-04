@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
+
 import java.time.LocalDateTime;
 
 /**
@@ -7,8 +11,13 @@ import java.time.LocalDateTime;
  */
 public class ShowDueCommand extends Command {
     public static final String COMMAND_WORD = "showdue";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due today. ";
-    public static final String MESSAGE_SUCCESS = "Listed all cards due today";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date "
+            + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
+            + PREFIX_DAY + "30 "
+            + PREFIX_MONTH + "2 "
+            + PREFIX_YEAR + "2018";
+
+    public static final String MESSAGE_SUCCESS = "Listed all cards due before %s";
 
     private final LocalDateTime date;
 
@@ -17,9 +26,9 @@ public class ShowDueCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(){
+    public CommandResult execute() {
         model.showDueCards(this.date);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, date.toLocalDate().toString()));
     }
 
     @Override

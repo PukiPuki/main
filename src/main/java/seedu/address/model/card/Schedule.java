@@ -3,21 +3,20 @@ package seedu.address.model.card;
 import static java.lang.Math.log;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Holds the Schedule information for a Card
+ * Holds the ScheduleCommand information for a Card
  */
-public class Schedule implements Comparable<Schedule>{
+public class Schedule implements Comparable<Schedule> {
 
     public static final String MESSAGE_ANSWER_CONSTRAINTS =
         "Confidence Levels should only be 0, 1 or 2";
     public static final String MESSAGE_DAY_CONSTRAINTS =
         "There are at most 31 days! Is this month February?";
     public static final String MESSAGE_MONTH_CONSTRAINTS =
-      "There are at most 12 months!";
+        "There are at most 12 months!";
 
     private final double lowerBoundRememberRate = 0.85;
 
@@ -35,6 +34,10 @@ public class Schedule implements Comparable<Schedule>{
 
     public LocalDateTime getNextReview() {
         return nextReview;
+    }
+
+    public void setNextReview(LocalDateTime date) {
+        this.nextReview = date;
     }
 
     public void setRelativeNextReview(int days) {
@@ -66,31 +69,51 @@ public class Schedule implements Comparable<Schedule>{
         this.nextReview = LocalDateTime.now();
     }
 
+    /**
+     * Check if it is a valid confidence level between 0 1 2
+     * @param confidenceLevel
+     * @return true/false
+     */
     public static boolean isValidConfidenceLevel(int confidenceLevel) {
         if (confidenceLevel >= 0 && confidenceLevel <= 2) {
-           return true;
+            return true;
         } else {
-           return false;
+            return false;
         }
     }
 
+    /**
+     * Check if it is a valid confidence level between 0 1 2 string version
+     * @param confidenceLevelString
+     * @return true/false
+     */
     public static boolean isValidConfidenceLevel(String confidenceLevelString) {
         int confidenceLevel = Integer.parseInt(confidenceLevelString);
         if (confidenceLevel >= 0 && confidenceLevel <= 2) {
-           return true;
+            return true;
         } else {
-           return false;
+            return false;
         }
     }
 
+    /**
+     * Check if it is a valid Month between 1 to 12
+     * @param month
+     * @return true/false
+     */
     public static boolean isValidMonth(int month) {
         if (month >= 1 && month <= 12) {
-           return true;
+            return true;
         } else {
-           return false;
+            return false;
         }
     }
 
+    /**
+     * Check if it is a valid day between 1 to 31
+     * @param day
+     * @return true/false
+     */
     public static boolean isValidDay(int day) {
         if (day >= 1 && day <= 31) {
             return true;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class ScheduleTest {
+public class ScheduleCommandTest {
 
     @Test
     public void feedback_getSuccessRate() {

@@ -166,20 +166,35 @@ public class ParserUtil {
     }
 
     //@@author pukipuki
+    /**
+     * Parses a {@code String confidenceLevel} into an {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code confidenceLevel} is invalid.
+     */
     public static int parseConfidenceLevel(String confidenceLevelString) throws IllegalValueException {
         requireNonNull(confidenceLevelString);
         String trimmedConfidenceLevelString = confidenceLevelString.trim();
-        if (!Schedule.isValidConfidenceLevel(trimmedConfidenceLevelString)) {
+        if (!Schedule
+            .isValidConfidenceLevel(trimmedConfidenceLevelString)) {
             throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
         }
         return Integer.parseInt(confidenceLevelString);
     }
 
-    public static LocalDateTime parseDate(String dayString, String monthString, String yearString) throws IllegalValueException, DateTimeException {
+    /**
+     * Parses {@code String dayString, String monthString, String yearString} into a {@code LocalDateTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given date is invalid.
+     */
+    public static LocalDateTime parseDate(String dayString, String monthString, String yearString)
+        throws IllegalValueException, DateTimeException {
+
         int year = getYear(yearString);
         int month = getMonth(monthString);
         int day = getDay(dayString);
-        if(!Schedule.isValidDay(day)) {
+        if (!Schedule.isValidDay(day)) {
             throw new IllegalValueException(Schedule.MESSAGE_DAY_CONSTRAINTS);
         } else if (!Schedule.isValidMonth(month)) {
             throw new IllegalValueException(Schedule.MESSAGE_MONTH_CONSTRAINTS);
@@ -192,6 +207,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Helper functions for parseDate
+     */
     public static String trimDateArgs(Optional<String> args) {
         if (args.isPresent()) {
             return args.get();
@@ -200,6 +218,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Helper functions for parseDate
+     */
     public static int getYear(String yearString) {
         if (yearString.equals("")) {
             return LocalDate.now().getYear();
@@ -208,6 +229,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Helper functions for parseDate
+     */
     public static int getMonth(String monthString) {
         if (monthString.equals("")) {
             return LocalDate.now().getMonthValue();
@@ -216,6 +240,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Helper functions for parseDate
+     */
     public static int getDay(String dayString) {
         if (dayString.equals("")) {
             return LocalDate.now().getDayOfMonth();

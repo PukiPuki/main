@@ -66,6 +66,11 @@ public interface Model {
     void showAllCards();
 
     /**
+     * Set selected card's next review date.
+     */
+    void setNextReview(LocalDateTime date) throws NoCardSelectedException;
+
+    /**
      * Sets the filtered card list to contain cards that are due for review today.
      */
     void showDueCards(LocalDateTime date);

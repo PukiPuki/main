@@ -23,7 +23,7 @@ public class AnswerCommand extends UndoableCommand {
     private final int confidenceLevel;
 
     /**
-     * Creates an AnswerCommand to add the specified {@code Card}
+     * Creates an AnswerCommand to answer the selected {@code Card}
      */
     public AnswerCommand(int confidenceLevel) {
         this.confidenceLevel = confidenceLevel;
