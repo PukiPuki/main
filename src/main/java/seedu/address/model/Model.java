@@ -35,6 +35,9 @@ public interface Model {
     /** Returns the AddressBook */
     Card getSelectedCard();
 
+    /** Set selected card */
+    void setSelectedCard(Card selectedCard);
+
     /** Deletes the given tag. */
     void deleteTag(Tag target) throws TagNotFoundException;
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TAGS;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD;
 import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
@@ -12,6 +13,7 @@ import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
 import java.util.Arrays;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -23,12 +25,25 @@ import seedu.address.testutil.AddressBookBuilder;
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private ModelManager model;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void getFilteredTagList_modifyList_throwsUnsupportedOperationException() {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredTagList().remove(0);
+    }
+
+    @Test
+    public void setSelectedCard_null() {
+        assertNull(model.getSelectedCard());
+        model.setSelectedCard(null);
+        assertNull(model.getSelectedCard());
     }
 
     @Test
@@ -47,15 +62,15 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder()
-                .withTag(PHYSICS_TAG)
-                .withTag(MATHEMATICS_TAG)
-                .withCard(PHYSICS_CARD)
-                .withCard(PHYSICS_CARD_2)
-                .withCard(MATHEMATICS_CARD)
-                .withEdge(PHYSICS_CARD, PHYSICS_TAG)
-                .withEdge(PHYSICS_CARD_2, PHYSICS_TAG)
-                .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
-                .build();
+            .withTag(PHYSICS_TAG)
+            .withTag(MATHEMATICS_TAG)
+            .withCard(PHYSICS_CARD)
+            .withCard(PHYSICS_CARD_2)
+            .withCard(MATHEMATICS_CARD)
+            .withEdge(PHYSICS_CARD, PHYSICS_TAG)
+            .withEdge(PHYSICS_CARD_2, PHYSICS_TAG)
+            .withEdge(MATHEMATICS_CARD, MATHEMATICS_TAG)
+            .build();
 
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();

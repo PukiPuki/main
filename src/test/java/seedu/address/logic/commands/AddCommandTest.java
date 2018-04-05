@@ -119,6 +119,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setSelectedCard(Card selectedCard) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void deleteTag(Tag target) throws TagNotFoundException {
             fail("This method should not be called.");
         }

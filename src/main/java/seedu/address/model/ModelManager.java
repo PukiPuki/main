@@ -85,6 +85,11 @@ public class ModelManager extends ComponentManager implements Model {
         return selectedCard;
     }
 
+    @Override
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
+
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
