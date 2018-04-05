@@ -2,9 +2,33 @@ package seedu.address.model.card;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class ScheduleTest {
+    private Schedule schedule;
+    private LocalDateTime todaysDate;
+
+    @Before
+    public void setUp() {
+        todaysDate = LocalDate.now().atStartOfDay();
+        schedule = new Schedule();
+    }
+
+    @Test
+    public void getNextReview_success() {
+        assertEquals(schedule.getNextReview(), todaysDate);
+    }
+
+    @Test
+    public void setNextReview_success() {
+        LocalDateTime expectedDate = todaysDate.plusYears(1L);
+        schedule.setNextReview(expectedDate);
+        assertEquals(schedule.getNextReview(), expectedDate);
+    }
 
     @Test
     public void feedback_getSuccessRate() {

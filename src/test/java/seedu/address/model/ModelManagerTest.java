@@ -64,16 +64,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setNextReview_null_throwsCommandException() throws Exception {
+    public void setNextReview_throwsCommandException() throws Exception {
         thrown.expect(NoCardSelectedException.class);
         model.setNextReview(todaysDate);
     }
 
     @Test
-    public void answerSelectedCard_throwsNoCardSelectedException() throws NoCardSelectedException {
-        ModelManager modelManager = new ModelManager();
+    public void answerSelectedCard_throwsNoCardSelectedException() throws Exception {
         thrown.expect(NoCardSelectedException.class);
-        modelManager.answerSelectedCard(0);
+        model.answerSelectedCard(0);
     }
 
     @Test
