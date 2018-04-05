@@ -87,7 +87,7 @@ public class ScheduleCommandTest {
     }
 
     /**
-     * Returns a {@code ScheduleCommand} with parameters {@code index}.
+     * Returns a {@code ScheduleCommand} with parameters {@code date}.
      */
     private ScheduleCommand prepareCommand(LocalDateTime date) {
         ScheduleCommand scheduleCommand = new ScheduleCommand(date);
