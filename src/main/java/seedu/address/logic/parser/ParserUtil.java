@@ -193,8 +193,12 @@ public class ParserUtil {
     public static int parseConfidenceLevel(String confidenceLevelString) throws IllegalValueException {
         requireNonNull(confidenceLevelString);
         String trimmedConfidenceLevelString = confidenceLevelString.trim();
-        if (!Schedule
-            .isValidConfidenceLevel(trimmedConfidenceLevelString)) {
+        try {
+            if (!Schedule
+                .isValidConfidenceLevel(trimmedConfidenceLevelString)) {
+                throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
+            }
+        } catch (NumberFormatException nfe) {
             throw new IllegalValueException(Schedule.MESSAGE_ANSWER_CONSTRAINTS);
         }
         return Integer.parseInt(confidenceLevelString);

@@ -93,12 +93,17 @@ public class Schedule implements Comparable<Schedule> {
      * @param confidenceLevelString
      * @return true/false
      */
-    public static boolean isValidConfidenceLevel(String confidenceLevelString) {
-        int confidenceLevel = Integer.parseInt(confidenceLevelString);
-        if (confidenceLevel >= 0 && confidenceLevel <= 2) {
-            return true;
-        } else {
-            return false;
+    public static boolean isValidConfidenceLevel(String confidenceLevelString)
+        throws NumberFormatException {
+        try {
+            int confidenceLevel = Integer.parseInt(confidenceLevelString);
+            if (confidenceLevel >= 0 && confidenceLevel <= 2) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException nfe) {
+            throw new NumberFormatException(nfe.getMessage());
         }
     }
 
