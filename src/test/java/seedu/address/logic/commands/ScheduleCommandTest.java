@@ -22,7 +22,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.card.Card;
 
-//@@author yong-jie
 public class ScheduleCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
