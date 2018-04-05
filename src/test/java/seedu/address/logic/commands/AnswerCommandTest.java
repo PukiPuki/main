@@ -34,7 +34,7 @@ public class AnswerCommandTest {
     }
 
     @Test
-    public void execute_s_throwsCommandException() throws Exception {
+    public void execute_noCardSelected_throwsCommandException() throws Exception {
         thrown.expect(CommandException.class);
         answerCommand.executeUndoableCommand();
     }

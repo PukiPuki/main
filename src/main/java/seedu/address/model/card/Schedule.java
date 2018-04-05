@@ -22,12 +22,16 @@ public class Schedule implements Comparable<Schedule> {
         "There are at most 31 and at least 1 day.";
     public static final String MESSAGE_MONTH_CONSTRAINTS =
         "There are at most 12 and at least 1 month.";
+    public static final int INITIAL_LEARNING_PHASE = 3;
+    public static final int INITIAL_LAST_INTERVAL = 1;
+    public static final double INITIAL_EASING_FACTOR = 1.3;
+    public static final double INITIAL_HISTORICAL_EASING_FACTOR = 1.3;
 
     private final double lowerBoundRememberRate = 0.85;
 
     private LocalDateTime nextReview;
-    private int learningPhase = 3;
-    private int lastInterval = 1;
+    private int learningPhase = INITIAL_LEARNING_PHASE;
+    private int lastInterval = INITIAL_LAST_INTERVAL;
     private double easingFactor = 1.3;
     private double historicalEasingFactor = 1.3;
     private int success = 0;
@@ -58,7 +62,7 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     public double getSuccessRate() {
-        double successRate = success / (double) (success + failure);
+        double successRate = success / (double) (success + failure + 1);
         return successRate;
     }
 
