@@ -63,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCards.setAll(this.addressBook.getCardList());
 
         selectedTag = null;
+        selectedCard = null;
     }
 
     public ModelManager() {
@@ -80,6 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
+    //@@author pukipuki
     @Override
     public Card getSelectedCard() {
         return selectedCard;
@@ -89,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
     }
+    //@@author
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
@@ -184,7 +187,6 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.deleteCard(card);
         indicateAddressBookChanged();
     }
-
 
     //@@author pukipuki
     @Override

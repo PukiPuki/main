@@ -24,6 +24,7 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_CARD_NOT_SELECTED = "Cannot answer to no card, please select a card first.";
 
     private final LocalDateTime date;
+
     /**
      * Creates an ScheduleCommand to schedule the selected {@code Card}
      */

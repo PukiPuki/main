@@ -32,12 +32,6 @@ public class ScheduleTest {
     }
 
     @Test
-    public void getLearningPhase_success() {
-        int actual = schedule.getLearningPhase();
-        assertEquals(actual, Schedule.INITIAL_LEARNING_PHASE);
-    }
-
-    @Test
     public void getLastInterval_success() {
         int actual = schedule.getLastInterval();
         assertEquals(actual, Schedule.INITIAL_LAST_INTERVAL);
@@ -53,6 +47,12 @@ public class ScheduleTest {
     public void getHistoricalEasingFactor_success() {
         double actual = schedule.getHistoricalEasingFactor();
         assertEquals(actual, Schedule.INITIAL_HISTORICAL_EASING_FACTOR, delta);
+    }
+
+    @Test
+    public void getLearningPhase_success() {
+        int actual = schedule.getLearningPhase();
+        assertEquals(actual, Schedule.INITIAL_LEARNING_PHASE);
     }
 
     @Test
@@ -122,5 +122,4 @@ public class ScheduleTest {
         s.feedback(false);
         assertEquals(0.3048048297281299, s.getEasingFactor(), delta);
     }
-
 }

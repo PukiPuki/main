@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ScheduleCommand;
 
+//@@author pukipuki
 public class ScheduleCommandParserTest {
     private LocalDateTime todaysDate;
     private ScheduleCommandParser parser = new ScheduleCommandParser();
@@ -33,7 +34,6 @@ public class ScheduleCommandParserTest {
         todaysDate = LocalDate.now().atStartOfDay();
     }
 
-    //@@author pukipuki
     @Test
     public void parse_allFieldsNotPresentCard_success() {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE, new ScheduleCommand(todaysDate));

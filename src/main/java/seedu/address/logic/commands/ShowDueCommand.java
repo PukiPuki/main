@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
@@ -22,11 +23,13 @@ public class ShowDueCommand extends Command {
     private final LocalDateTime date;
 
     public ShowDueCommand(LocalDateTime date) {
+        requireNonNull(date);
         this.date = date;
     }
 
     @Override
     public CommandResult execute() {
+        requireNonNull(this.date);
         model.showDueCards(this.date);
         return new CommandResult(String.format(MESSAGE_SUCCESS, date.toLocalDate().toString()));
     }

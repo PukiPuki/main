@@ -84,12 +84,8 @@ public class Schedule implements Comparable<Schedule> {
      * @return true/false
      */
     public static boolean isValidConfidenceLevel(int confidenceLevel) {
-        if (confidenceLevel >= VALID_MIN_CONFIDENCE_LEVEL
-            && confidenceLevel <= VALID_MAX_CONFIDENCE_LEVEL) {
-            return true;
-        } else {
-            return false;
-        }
+        return confidenceLevel >= VALID_MIN_CONFIDENCE_LEVEL
+            && confidenceLevel <= VALID_MAX_CONFIDENCE_LEVEL;
     }
 
     /**
@@ -101,11 +97,7 @@ public class Schedule implements Comparable<Schedule> {
         throws NumberFormatException {
         try {
             int confidenceLevel = Integer.parseInt(confidenceLevelString);
-            if (confidenceLevel >= 0 && confidenceLevel <= 2) {
-                return true;
-            } else {
-                return false;
-            }
+            return isValidConfidenceLevel(confidenceLevel);
         } catch (NumberFormatException nfe) {
             throw new NumberFormatException(nfe.getMessage());
         }
@@ -117,11 +109,7 @@ public class Schedule implements Comparable<Schedule> {
      * @return true/false
      */
     public static boolean isValidMonth(int month) {
-        if (month >= 1 && month <= 12) {
-            return true;
-        } else {
-            return false;
-        }
+        return month >= 1 && month <= 12;
     }
 
     /**
@@ -130,11 +118,7 @@ public class Schedule implements Comparable<Schedule> {
      * @return true/false
      */
     public static boolean isValidDay(int day) {
-        if (day >= 1 && day <= 31) {
-            return true;
-        } else {
-            return false;
-        }
+        return day >= 1 && day <= 31;
     }
 
     /**

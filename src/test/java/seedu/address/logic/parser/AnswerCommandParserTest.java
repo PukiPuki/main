@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONFIDENCE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.card.Schedule.VALID_CONFIDENCE_LEVEL_0;
 import static seedu.address.model.card.Schedule.VALID_CONFIDENCE_LEVEL_1;
@@ -26,10 +27,9 @@ public class AnswerCommandParserTest {
     }
 
     @Test
-    public void parse_outOfRange_throwIllegalArgumentException() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
-        assertParseSuccess(parser, " " + PREFIX_CONFIDENCE
-            + "99", new AnswerCommand(0));
+    public void parse_outOfRangeMessage_failure() {
+        assertParseFailure(parser, " " + PREFIX_CONFIDENCE
+            + "99", "Confidence Levels should only be 0, 1 or 2");
     }
 
     @Test

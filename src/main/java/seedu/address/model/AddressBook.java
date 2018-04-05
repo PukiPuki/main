@@ -167,7 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         cards.setCard(target, editedCard);
     }
 
-    //@@ author pukipuki
+    //@@author pukipuki
     //// predicate for card review
     public Predicate<Card> isBefore() {
         return c -> c.getSchedule().getNextReview()
@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         return filteredList;
     }
-    //@@ author
+    //@@author
 
     //// util methods
 
