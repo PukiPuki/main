@@ -4,10 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +66,7 @@ public class CommandTestUtil {
     public static final String VALID_MCQ_OPTION_2 = "11th August";
     public static final String VALID_MCQ_OPTION_3 = "9th August";
     public static final Set<String> VALID_MCQ_OPTION_SET =
-            new HashSet<>(Arrays.asList(new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3}));
+        new HashSet<>(Arrays.asList(new String[]{VALID_MCQ_OPTION_1, VALID_MCQ_OPTION_2, VALID_MCQ_OPTION_3}));
 
     public static final String FRONT_DESC_CARD = " " + PREFIX_FRONT + VALID_FRONT_CARD_1;
     public static final String BACK_DESC_CARD = " " + PREFIX_BACK + VALID_BACK_CARD_1;
@@ -88,22 +91,48 @@ public class CommandTestUtil {
     public static final Integer CORRESPONDING_THEME_INDEX_1 = 0;
     public static final Integer CORRESPONDING_THEME_INDEX_2 = 1;
 
+    public static final String[] LIST_DAY_MONTH_YEAR = new String[]{
+        PREFIX_DAY.toString(), PREFIX_MONTH.toString(), PREFIX_YEAR.toString()};
+    public static final long[] LIST_VALID_DAY_MONTH_YEAR = new long[]{1L, 1L, 1L};
+    public static final String[] LIST_PREFIX_RUBBISH = new String[]{
+        PREFIX_DAY.toString() + "RUBBISH",
+        PREFIX_MONTH.toString() + "RUBBISH",
+        PREFIX_YEAR.toString() + "RUBBISH"
+    };
+    public static final String INVALID_29FEBRUARY = ""
+        + " " + PREFIX_DAY + "29"
+        + " " + PREFIX_MONTH + "2"
+        + " " + PREFIX_YEAR + "2018";
+    public static final String INVALID_30FEBRUARY = ""
+        + " " + PREFIX_DAY + "30"
+        + " " + PREFIX_MONTH + "2";
+    public static final String INVALID_32MARCH = ""
+        + " " + PREFIX_DAY + "32"
+        + " " + PREFIX_MONTH + "3";
+    public static final String INVALID_31APRIL = ""
+        + " " + PREFIX_DAY + "31"
+        + " " + PREFIX_MONTH + "4";
+    public static final String INVALID_32DAY_OF_MONTH = ""
+        + " " + PREFIX_DAY + "32";
+    public static final String INVALID_0DAY_OF_MONTH = ""
+        + " " + PREFIX_DAY + "0";
+
     public static final String INVALID_THEME = "solarized";
 
     static {
         DESC_ENGLISH = new EditTagDescriptorBuilder().withName(VALID_NAME_ENGLISH)
-                .build();
+            .build();
         DESC_COMSCI = new EditTagDescriptorBuilder().withName(VALID_NAME_COMSCI)
-                .build();
+            .build();
     }
 
     static {
         CS2103T_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_1)
-                .withBack(VALID_BACK_CARD_1)
-                .build();
+            .withBack(VALID_BACK_CARD_1)
+            .build();
         CS2101_CARD = new EditCardDescriptorBuilder().withFront(VALID_FRONT_CARD_2)
-                .withBack(VALID_BACK_CARD_2)
-                .build();
+            .withBack(VALID_BACK_CARD_2)
+            .build();
     }
 
     /**
@@ -112,7 +141,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute();
             assertEquals(expectedMessage, result.feedbackToUser);
@@ -191,4 +220,6 @@ public class CommandTestUtil {
         redoCommand.setData(model, new CommandHistory(), undoRedoStack);
         return redoCommand;
     }
+
+
 }

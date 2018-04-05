@@ -64,7 +64,6 @@ public class AddressBookTest {
         addressBook.getTagList().remove(0);
     }
 
-    // ding feng test
     @Test
     public void getReviewList() {
         AddressBook newData = getTypicalAddressBook();

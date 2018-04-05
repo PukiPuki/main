@@ -37,11 +37,13 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
     public static final String MESSAGE_INVALID_THEME =
-            "Theme must be one of " + String.join(", ", VALID_THEMES);
+        "Theme must be one of " + String.join(", ", VALID_THEMES);
+    public static final String MESSAGE_INVALID_NUMBER = "Not a number, please put a valid number.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
@@ -166,6 +168,7 @@ public class ParserUtil {
     }
 
     //@@author pukipuki
+
     /**
      * Parses a {@code String confidenceLevel} into an {@code Integer}.
      * Leading and trailing whitespaces will be trimmed.
@@ -191,19 +194,21 @@ public class ParserUtil {
     public static LocalDateTime parseDate(String dayString, String monthString, String yearString)
         throws IllegalValueException, DateTimeException {
 
-        int year = getYear(yearString);
-        int month = getMonth(monthString);
-        int day = getDay(dayString);
-        if (!Schedule.isValidDay(day)) {
-            throw new IllegalValueException(Schedule.MESSAGE_DAY_CONSTRAINTS);
-        } else if (!Schedule.isValidMonth(month)) {
-            throw new IllegalValueException(Schedule.MESSAGE_MONTH_CONSTRAINTS);
-        }
         try {
+            int year = getYear(yearString);
+            int month = getMonth(monthString);
+            int day = getDay(dayString);
+            if (!Schedule.isValidDay(day)) {
+                throw new IllegalValueException(Schedule.MESSAGE_DAY_CONSTRAINTS);
+            } else if (!Schedule.isValidMonth(month)) {
+                throw new IllegalValueException(Schedule.MESSAGE_MONTH_CONSTRAINTS);
+            }
             LocalDateTime date = LocalDate.of(year, month, day).atStartOfDay();
             return date;
         } catch (DateTimeException dte) {
             throw new IllegalValueException(dte.getMessage());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException(e.getMessage());
         }
     }
 
@@ -225,7 +230,11 @@ public class ParserUtil {
         if (yearString.equals("")) {
             return LocalDate.now().getYear();
         } else {
-            return Integer.parseInt(yearString);
+            try {
+                return Integer.parseInt(yearString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
         }
     }
 
@@ -236,7 +245,11 @@ public class ParserUtil {
         if (monthString.equals("")) {
             return LocalDate.now().getMonthValue();
         } else {
-            return Integer.parseInt(monthString);
+            try {
+                return Integer.parseInt(monthString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
         }
     }
 
@@ -247,12 +260,17 @@ public class ParserUtil {
         if (dayString.equals("")) {
             return LocalDate.now().getDayOfMonth();
         } else {
-            return Integer.parseInt(dayString);
+            try {
+                return Integer.parseInt(dayString);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(MESSAGE_INVALID_NUMBER);
+            }
         }
     }
     //@@author
 
     //@@author jethrokuan
+
     /**
      * Parses a {@code String tag} into a {@code Tag}
      * Leading and trailing whitespaces will be trimmed
