@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -11,6 +12,8 @@ import static seedu.address.testutil.TypicalCards.PHYSICS_CARD_2;
 import static seedu.address.testutil.TypicalTags.MATHEMATICS_TAG;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.junit.Before;
@@ -26,10 +29,12 @@ public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     private ModelManager model;
+    private LocalDateTime todaysDate;
 
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        todaysDate = LocalDate.now().atStartOfDay();
     }
 
     @Test
@@ -47,9 +52,21 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setSelectedCard_success() {
+        assertNull(model.getSelectedCard());
+        model.setSelectedCard(PHYSICS_CARD);
+        assertEquals(model.getSelectedCard(), PHYSICS_CARD);
+    }
+
+    @Test
     public void getSelectedCard_null() {
-        ModelManager modelManager = new ModelManager();
-        assertNull(modelManager.getSelectedCard());
+        assertNull(model.getSelectedCard());
+    }
+
+    @Test
+    public void setNextReview_null_throwsCommandException() throws Exception {
+        thrown.expect(NoCardSelectedException.class);
+        model.setNextReview(todaysDate);
     }
 
     @Test
