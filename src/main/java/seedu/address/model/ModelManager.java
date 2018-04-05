@@ -88,10 +88,21 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+        updateFilteredCardList();
     }
 
     @Override
     public synchronized void deleteTag(Tag target) throws TagNotFoundException {
+        CardTag cardTag = this.addressBook.getCardTag();
+        List<Card> cards = cardTag.getCards(target, this.addressBook.getCardList());
+        for (Card card: cards) {
+            try {
+                cardTag.removeEdge(card, target);
+            } catch (EdgeNotFoundException e) {
+                throw new IllegalStateException("Not possible to reach here.");
+            }
+        }
+
         addressBook.removeTag(target);
         indicateAddressBookChanged();
     }
@@ -156,8 +167,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteCard(Card card) throws CardNotFoundException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        List<Tag> tags = cardTag.getTags(card, this.getAddressBook().getTagList());
+        for (Tag tag : tags) {
+            try {
+                cardTag.removeEdge(card, tag);
+            } catch (EdgeNotFoundException e) {
+                throw new IllegalStateException("Not possible to reach here.");
+            }
+        }
         addressBook.deleteCard(card);
-        updateFilteredCardList();
         indicateAddressBookChanged();
     }
 
@@ -232,39 +251,36 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jethrokuan
     @Override
-    public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
-        this.getAddressBook().getCardTag().addEdge(card, tag);
-        updateFilteredCardList();
-    }
-
-    @Override
-    public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
-        this.getAddressBook().getCardTag().removeEdge(card, tag);
-        updateFilteredCardList();
-    }
-
-    @Override
     public List<Tag> getTags(Card card) {
         return this.getAddressBook()
                 .getCardTag()
                 .getTags(card, this.getAddressBook().getTagList());
     }
 
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
-    public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+    public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
         CardTag cardTag = this.getAddressBook().getCardTag();
-        List<Tag> oldTags = cardTag.getTags(card, this.getAddressBook().getTagList());
-
-        // Remove old tags first
-        for (Tag tag : oldTags) {
-            cardTag.removeEdge(card, tag);
+        for (Tag tag: tags) {
+            int index = this.addressBook.getTagList().indexOf(tag);
+            if (index == -1) {
+                throw new TagNotFoundException(tag);
+            }
+            Tag existingTag = this.addressBook.getTagList().get(index);
+            cardTag.removeEdge(card, existingTag);
         }
+        indicateAddressBookChanged(); // Force UI update.
+    }
 
-        for (Tag tag : tags) {
+    // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
+    @Override
+    public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
+        CardTag cardTag = this.getAddressBook().getCardTag();
+        for (Tag tag: tags) {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
-
+        indicateAddressBookChanged(); // Force UI update.
     }
     //@@author
 

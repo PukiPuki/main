@@ -142,24 +142,20 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addEdge(Card card, Tag tag) throws DuplicateEdgeException {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public void removeEdge(Card card, Tag tag) throws EdgeNotFoundException {
-            fail("This method should not be called");
-        }
-
-        @Override
         public List<Tag> getTags(Card card) {
             fail("This method should not be called");
             return null;
         }
 
         @Override
-        public void updateTagsForCard(Card card, Set<Tag> tags) throws DuplicateEdgeException, EdgeNotFoundException {
+        public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
             fail("This method should not be called");
+        }
+
+        @Override
+        public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
+            fail("This method should not be called");
+
         }
 
         @Override

@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CARD_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CARD_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BACK_CS2103T_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2101_CARD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRONT_CS2103T_CARD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,15 +63,19 @@ public class TypicalCards {
             .withBack("Verbs").build();
 
     // Manually added - Card's details found in {@code CommandTestUtil}
-    public static final Card CS2103T_CARD = new CardBuilder().withFront(VALID_FRONT_CARD_1).withBack(VALID_BACK_CARD_1)
+    public static final Card CS2103T_CARD = new CardBuilder()
+            .withFront(VALID_FRONT_CS2103T_CARD)
+            .withBack(VALID_BACK_CS2103T_CARD)
             .build();
-    public static final Card CS2101_CARD = new CardBuilder().withFront(VALID_FRONT_CARD_2).withBack(VALID_BACK_CARD_2)
+    public static final Card CS2101_CARD = new CardBuilder()
+            .withFront(VALID_FRONT_CS2101_CARD)
+            .withBack(VALID_BACK_CS2101_CARD)
             .build();
 
     private TypicalCards() {} // prevents instantiation
 
     public static List<Card> getTypicalCards() {
         return new ArrayList<>(Arrays.asList(MATHEMATICS_CARD, CHEMISTRY_CARD, COMSCI_CARD, GEOGRAPHY_CARD,
-                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2, ENGLISH_CARD));
+                HISTORY_CARD, ECONOMICS_CARD, LITERATURE_CARD, PHYSICS_CARD, PHYSICS_CARD_2));
     }
 }
