@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 public class ShowDueCommand extends Command {
     public static final String COMMAND_WORD = "showdue";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all cards due on a date "
-            + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
-            + PREFIX_DAY + "30 "
-            + PREFIX_MONTH + "2 "
-            + PREFIX_YEAR + "2018";
+        + "Optional Parameters: if parameter is not given, will default to today's day, month or year."
+        + PREFIX_DAY + "30 "
+        + PREFIX_MONTH + "2 "
+        + PREFIX_YEAR + "2018";
 
     public static final String MESSAGE_SUCCESS = "Listed all cards due before %s";
-
+    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD;
     private final LocalDateTime date;
 
     public ShowDueCommand(LocalDateTime date) {
@@ -37,7 +37,7 @@ public class ShowDueCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ShowDueCommand // instanceof handles nulls
-                && date.equals(((ShowDueCommand) other).date));
+            || (other instanceof ShowDueCommand // instanceof handles nulls
+            && date.equals(((ShowDueCommand) other).date));
     }
 }

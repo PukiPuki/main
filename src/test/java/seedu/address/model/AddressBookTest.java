@@ -64,13 +64,6 @@ public class AddressBookTest {
         addressBook.getTagList().remove(0);
     }
 
-    @Test
-    public void getReviewList() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assert(true);
-    }
-
     /**
      * A stub ReadOnlyAddressBook whose tags and tags lists can violate interface constraints.
      */

@@ -184,6 +184,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// get list of cards for review
     public ObservableList<Card> getReviewList(LocalDateTime date) {
+        requireNonNull(date);
         Comparator<Card> byDate =
             Comparator.comparing(Card::getSchedule);
 
