@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
  */
 public class Schedule implements Comparable<Schedule> {
 
+    public static final int VALID_CONFIDENCE_LEVEL_0 = 0;
+    public static final int VALID_CONFIDENCE_LEVEL_1 = 1;
+    public static final int VALID_CONFIDENCE_LEVEL_2 = 2;
+    public static final int VALID_MIN_CONFIDENCE_LEVEL = 0;
+    public static final int VALID_MAX_CONFIDENCE_LEVEL = 2;
     public static final String MESSAGE_ANSWER_CONSTRAINTS =
         "Confidence Levels should only be 0, 1 or 2";
     public static final String MESSAGE_DAY_CONSTRAINTS =
@@ -75,7 +80,8 @@ public class Schedule implements Comparable<Schedule> {
      * @return true/false
      */
     public static boolean isValidConfidenceLevel(int confidenceLevel) {
-        if (confidenceLevel >= 0 && confidenceLevel <= 2) {
+        if (confidenceLevel >= VALID_MIN_CONFIDENCE_LEVEL
+            && confidenceLevel <= VALID_MAX_CONFIDENCE_LEVEL) {
             return true;
         } else {
             return false;

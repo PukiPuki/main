@@ -68,7 +68,6 @@ public class AddressBookTest {
     public void getReviewList() {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
-
         assert(true);
     }
 
