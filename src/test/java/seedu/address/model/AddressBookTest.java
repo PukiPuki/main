@@ -5,6 +5,8 @@ import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalCards.MATHEMATICS_CARD;
 import static seedu.address.testutil.TypicalTags.PHYSICS_TAG;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,9 +22,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 import seedu.address.model.cardtag.CardTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.CardArrayBuilder;
+import seedu.address.testutil.TypicalAddressBook;
 
 public class AddressBookTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -62,6 +65,33 @@ public class AddressBookTest {
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
+    }
+
+    @Test
+    public void getReviewList() throws Exception {
+        LocalDateTime todaysDate = LocalDate.now().atStartOfDay();
+        ObservableList<Card> list = addressBook.getReviewList(todaysDate);
+        assert (list.isEmpty());
+        int[] days = new int[]{-1, 0, 1, 3};
+        Card[] cardArray = CardArrayBuilder.getMapDaysToCardArray(days);
+        AddressBook addressBookSchedule = TypicalAddressBook
+            .getAddressBookFromCardArray(cardArray);
+        list = addressBookSchedule.getReviewList(todaysDate.minusDays(1L));
+        assertEquals(list.size(), 1);
+        list = addressBookSchedule.getReviewList(todaysDate);
+        assertEquals(list.size(), 2);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(1L));
+        assertEquals(list.size(), 3);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(2L));
+        assertEquals(list.size(), 3);
+        list = addressBookSchedule.getReviewList(todaysDate.plusDays(3L));
+        assertEquals(list.size(), 4);
+    }
+
+    @Test
+    public void getReviewList_nullArgument_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        addressBook.getReviewList(null);
     }
 
     /**

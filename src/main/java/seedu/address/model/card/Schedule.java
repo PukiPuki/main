@@ -41,6 +41,10 @@ public class Schedule implements Comparable<Schedule> {
         this.nextReview = LocalDate.now().atStartOfDay();
     }
 
+    public Schedule(LocalDateTime date) {
+        this.nextReview = date;
+    }
+
     public LocalDateTime getNextReview() {
         return nextReview;
     }
