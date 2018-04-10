@@ -94,7 +94,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
         updateFilteredCardList();
@@ -104,7 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTag(Tag target) throws TagNotFoundException {
         CardTag cardTag = this.addressBook.getCardTag();
         List<Card> cards = cardTag.getCards(target, this.addressBook.getCardList());
-        for (Card card: cards) {
+        for (Card card : cards) {
             try {
                 cardTag.removeEdge(card, target);
             } catch (EdgeNotFoundException e) {
@@ -126,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateTag(Tag target, Tag editedTag)
-            throws DuplicateTagException, TagNotFoundException {
+        throws DuplicateTagException, TagNotFoundException {
         requireAllNonNull(target, editedTag);
 
         addressBook.updateTag(target, editedTag);
@@ -165,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredTags.equals(other.filteredTags);
+            && filteredTags.equals(other.filteredTags);
     }
 
     @Override
@@ -181,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // We need to clone tags because removing tags while iterating over it results in strange behaviour.
         List<Tag> tempTags = new ArrayList<>();
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             tempTags.add(tag);
         }
 
@@ -216,7 +218,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateCard(Card target, Card editedCard)
-            throws DuplicateCardException, CardNotFoundException {
+        throws DuplicateCardException, CardNotFoundException {
         requireAllNonNull(target, editedCard);
 
         addressBook.updateCard(target, editedCard);
@@ -243,8 +245,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void filterCardsByTag(Tag tag) {
         filteredCards.setAll(addressBook
-                .getCardTag()
-                .getCards(tag, addressBook.getCardList()));
+            .getCardTag()
+            .getCards(tag, addressBook.getCardList()));
     }
 
     //@@author
@@ -266,7 +268,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void showDueCards(LocalDateTime date) {
-        filteredCards.setAll(this.addressBook.getReviewList(date));
+        filteredCards.setAll(this.addressBook.getReviewList(date, filteredCards));
     }
     //@@author
 
@@ -274,15 +276,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public List<Tag> getTags(Card card) {
         return this.getAddressBook()
-                .getCardTag()
-                .getTags(card, this.getAddressBook().getTagList());
+            .getCardTag()
+            .getTags(card, this.getAddressBook().getTagList());
     }
 
     // NOTE: tag passed might not have the correct ids, so it is important to fetch them first.
     @Override
     public void removeTags(Card card, Set<Tag> tags) throws EdgeNotFoundException, TagNotFoundException {
         CardTag cardTag = this.getAddressBook().getCardTag();
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             int index = this.addressBook.getTagList().indexOf(tag);
             if (index == -1) {
                 throw new TagNotFoundException(tag);
@@ -297,7 +299,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addTags(Card card, Set<Tag> tags) throws DuplicateEdgeException {
         CardTag cardTag = this.getAddressBook().getCardTag();
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             Tag newOrExistingTag = addTag(tag).getTag();
             cardTag.addEdge(card, newOrExistingTag);
         }
