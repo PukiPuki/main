@@ -55,10 +55,6 @@ public class ShowDueCommandTest {
         assert(!list.isEmpty());
     }
 
-    public void p(Object a) {
-        System.out.println(a);
-    }
-
     /**
      * Returns a {@code ShowDueCommand} with parameters {@code date}.
      */
