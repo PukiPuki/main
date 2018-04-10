@@ -33,7 +33,7 @@ public class ShowDueCommandTest {
     public void execute_correctMessage_success() {
         ShowDueCommand showDueCommand = prepareCommand(todaysDate);
         String expectedMessage = String.format(ShowDueCommand.MESSAGE_SUCCESS,
-            todaysDate.toLocalDate().toString());
+            todaysDate.toLocalDate().toString(), "");
         assertCommandSuccess(showDueCommand, model, expectedMessage, model);
     }
 
@@ -43,9 +43,13 @@ public class ShowDueCommandTest {
         ObservableList<Card> list = model.getFilteredCardList();
         showDueCommand.execute();
         assert(!list.isEmpty());
+
+        model.showAllCards();
         showDueCommand = prepareCommand(todaysDate.minusYears(1L));
         showDueCommand.execute();
         assert(list.isEmpty());
+
+        model.showAllCards();
         showDueCommand = prepareCommand(todaysDate.plusYears(1L));
         showDueCommand.execute();
         assert(!list.isEmpty());
