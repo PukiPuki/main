@@ -37,7 +37,8 @@ And we know studying is hard, thus we gave Flashy an intelligent scheduler to he
 // comment: do we want to add Italisization for Flashy?
 // comment: how do we reference special words like spaced repetition?
 [NOTE]
-`Spaced Repetition` is the idea that spreading out study sessions is much more effective than cramming it ove rone night.
+`Spaced Repetition` is the idea that spreading out study sessions is much more effective than cramming it over one night.
+To learn more, head over to https://en.wikipedia.org/wiki/Spaced_repetition
 
 Although Flashy is best suited for language learners,
 it is able to handle thousands of cards. Therefore, Flahsy should prove useful for any student hoping to improve their flashcard organisation.
@@ -51,7 +52,7 @@ Interested? Jump to the <<Quick Start>> to get started.
 
 
 == How to use User Guide
-This document is prepared for consumers with varying level of technical proficiency in mind.
+This document is made for users with varying level of technical proficiency in mind.
 As such most portions are stand alone with occasional references here and there.
 
 To aid in your understanding of our product, we put in various scenario based uses together with instructions.
@@ -161,7 +162,7 @@ To access this help guide at any time, type `help` into the command box and pres
 The very first step to using Flashy is to populate Flashy with flashcards.
 After which we will proceed to using it to increase your mental capabilities.
 
-Managing Card section contains all the information you need to add, select, edit cards and more.
+This section contains all the information you need to add, select, edit cards and more.
 
 // tag::addcard[]
 [[addc]]
@@ -261,8 +262,7 @@ Deletes the 2nd flashcard in the list.
 
 === Managing Tags
 
-Managing Tags is one of our key features too.
-It allows you to filter for cards that you want to quicky find that needle in the haystack.
+Tags allows you to filter for cards that you want to quicky find that needle in the haystack.
 For example you might want to search for cards that are tagged with *Mathematics*, this section can help you with that.
 
 ==== Selecting a tag : `select`
@@ -374,7 +374,7 @@ they are implicitly assumed to be the current month and year.
 ==== Answering flashcards: `answer`
 After using `showdue` to show a list of flashcards, you have to select a card to answer.
 You can select a card with the xref:selectc[selectc] command.
-Another way you can do it is to simply click on the flashcard.
+You can also simply click on the flashcard.
 
 `answer` uses our xref:spacedRepetition[Spaced Repetition] algorithm to intelligently schedule the card to the right time in the future for review.
 
@@ -390,7 +390,7 @@ Card must be selected first before answering.
 * `answer c/0` Again +
 I don't know the answer to this card. Card will then be requeued into the same session again.
 * `answer c/1` Passable +
-I think of know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
+I think I know the answer, but need more practice. Card will then be scheduled for the near future. To get more practice.
 * `answer c/2` Easy A+ +
 Card will then be scheduled further into the future. Other cards need more review than this one.
 
