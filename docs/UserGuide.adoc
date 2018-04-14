@@ -71,7 +71,7 @@ Important information.
 Things that might potentially cause issues.
 
 == Quick Start
-We know your time is valuable, we like to do things efficiently too.
+We know your time is valuable; We like to do things efficiently too.
 Here are some things you need to get up and running.
 
 === Installation
@@ -129,7 +129,7 @@ Let us walk you through the notation with our the command, `addc`
 
 [NOTE.example]
 ====
-In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flash card application? b/Flashy`.
+In `addc f/FRONT`, `FRONT` is a parameter which can be used as `addc f/ What's the best flashcard application? b/Flashy`.
 ====
 
 * Items in square brackets are optional.
@@ -260,7 +260,7 @@ Deletes the 2nd flashcard in the list.
 
 === Managing Tags
 
-Tags allows you to filter for cards that you want to quicky find that needle in the haystack.
+Tags allow you to filter for cards that you want to quicky find that needle in the haystack.
 For example you might want to search for cards that are tagged with *Mathematics*, this section can help you with that.
 
 ==== Selecting a tag : `select`
@@ -402,7 +402,7 @@ This design is based off the well known forgetting curve, you can read more abou
 
 [[schedule]]
 ==== Show flashcards for review: `Schedule`
-Using the `xref:answer[answer]` command to answer a flash card will automatically schedule the card based on our spaced repetition algorithm.
+Using the `xref:answer[answer]` command to answer a flashcard will automatically schedule the card based on our spaced repetition algorithm.
 However, if you want to manually `schedule` a card for review by a certain date, you can do so as well.
 
 Format: `schedule d/DAY m/MONTH y/YEAR`
