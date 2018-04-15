@@ -560,15 +560,15 @@ _{explain how the user can enable/disable data encryption}_
 |===
 |Function | Command | Example
 
-|Show Help Screen
+|Show help screen
 |`help`
 |`help`
 
-|List all Flashcards and Tags
+|List all flashcards and tags
 |`list`
 |`list`
 
-|Add Flashcard
+|Add flashcard
 |`addc f/FRONT [o/OPTION] ...  b/BACK [t/TAG]`
 |`addc f/What is the best flashcard application? b/Flashy! t/flashy` +
  +
@@ -576,13 +576,13 @@ _{explain how the user can enable/disable data encryption}_
  +
 `addc f/A square is polygon with _ sides meeting at _ angles. b/equal, right`
 
-|Edit Normal Flashcard
+|Edit normal flashcard
 |`editc [f/FRONT] [o/OPTION] .. [b/BACK] [+t/TAG] [-t/TAG]`
 |`editc f/When is National Day in Singapore?` +
  +
 `editc o/Asia o/Australia o/Africa b/3 +t/Trivia`
 
-|Show Flashcards due by a certain date
+|Show flashcards due by a certain date
 |showdue d/DAY m/MONTH y/YEAR
 |showdue d/14 m/4 y/2018 +
  +
@@ -590,15 +590,15 @@ showdue d/14 +
  +
 showdue
 
-|Reveal answer to Flashcard
+|Reveal answer to flashcard
 |`selectc INDEX`
 |`selectc 1`
 
-|Answer selected Flashcard
+|Answer selected flashcard
 |`answer c/CONFIDENCE_LEVEL`
 |`answer c/0`
 
-|Schedule selected Flashcard for a certain date
+|Schedule selected flashcard for a certain date
 |schedule d/DAY m/MONTH y/YEAR
 |schedule d/14 m/4 y/2018 +
  +
@@ -611,19 +611,19 @@ schedule
 
 |===
 |Function | Command | Example
-|Select Tag
+|Select tag
 |`select INDEX`
 |`select 1`
 
-|Filter Tags
+|Filter tags
 |`find KEYWORD [MORE_KEYWORDS]`
 |`find Biology Chemistry`
 
-|Edit Tag
+|Edit tag
 |`edit INDEX [t/TAG]`
 |`edit 1 t/German`
 
-|Delete Tag
+|Delete tag
 |`delete INDEX`
 |`delete 3`
 |===
@@ -632,15 +632,15 @@ schedule
 |===
 |Function | Command | Example
 
-|Undo a Command
+|Undo a command
 |`undo`
 |`undo`
 
-|Redo a Command
+|Redo a command
 |`redo`
 |`redo`
 
-|Clear Contents
+|Clear contents
 |`clear`
 |`clear`
 
